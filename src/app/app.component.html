@@ -2,7 +2,15 @@
     <div style="text-align: center;">
         <h1 class=".mat-h1, .mat-headline">First Angular App</h1>
         
+        <!--
+            Binds the orderCreated method to the onOrderCreated method 
+            in the .ts file and passes whatever is emitted?
+        -->
+
         <app-order-create (orderCreated)="onOrderCreated($event)"></app-order-create>
+
+        <!--Straightforward bind-->
+
         <app-order-placed [orders]="storedOrders"></app-order-placed>
 
     </div>

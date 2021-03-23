@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OrderPlacedComponent implements OnInit {
 
+  //receives from the parent component (I think)
+  //probably why we have the array declared in app.component
   @Input() orders = [];
 
   constructor() { }

@@ -10,10 +10,10 @@ export class OrderCreateComponent implements OnInit {
 
   constructor() { }
 
+  //Basically a broadcast object, from what I can see
   @Output() orderCreated = new EventEmitter();
 
-  newOrder = ``;
-  userName = ``;
+ 
 
   enteredUserName = ``;
   enteredEmail = ``;
@@ -25,6 +25,9 @@ export class OrderCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //So, this method makes an emit
+  //populates the order object and then
+  //emits it
   Order_Clicked()
   {
     this.order = {
@@ -32,6 +35,7 @@ export class OrderCreateComponent implements OnInit {
       Email: this.enteredEmail,
       PlacedOrder: this.enteredOrder
     }
+    //whatever is insied the brackets gets emitted
     this.orderCreated.emit(this.order);  
   }
 
