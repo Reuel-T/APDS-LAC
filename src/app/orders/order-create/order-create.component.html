@@ -1,0 +1,23 @@
+<h5>Create thy Order Here Plz</h5>
+
+<mat-card>
+
+    <form class="login">
+        <mat-form-field [style.width.px]=300 >
+            <input matInput type="text" [(ngModel)]="enteredUserName" name="userName" placeholder="Entreth thy Usernameth Hereth"/>
+        </mat-form-field>
+        <br>
+        <mat-form-field [style.width.px]=300 >
+            <input matInput type="email" [(ngModel)]="enteredEmail"  name="email" placeholder="Entreth thy Witchcraft Mail Address Hereth"/>
+        </mat-form-field>
+        <br>
+        <mat-form-field [style.width.px]=300 >
+            <input matInput type="text" [(ngModel)]="enteredOrder"  name="order" placeholder="Entreth thy Order Detailseth Hereth"/>
+        </mat-form-field>
+    </form>
+
+    <button mat-raised-button color="primary" (click)="Order_Clicked()">Placeth Thy Ordereth</button>
+
+</mat-card>
+
+<p>{{ userName }}</p>

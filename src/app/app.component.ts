@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'apds-lac-the-second-coming';
+  storedOrders = [];
+
+  onOrderCreated(order)
+  {
+    this.storedOrders.push(order);
+  }
+
 }
