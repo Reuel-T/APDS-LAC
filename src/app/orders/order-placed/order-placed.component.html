@@ -1,9 +1,9 @@
 <mat-accordion *ngIf=" orders.length > 0">
     <mat-expansion-panel *ngFor=" let order of orders">
         <mat-expansion-panel-header>
-        {{ order.UserName }}
+        {{ order.username }}
         </mat-expansion-panel-header>
-        {{ order.PlacedOrder }}
+        {{ order.placedOrder }}
     </mat-expansion-panel>
 </mat-accordion>
 <p class="mat-body" *ngIf="orders.length < 1"> No Posts Here m8</p>

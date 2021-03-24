@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Order } from '../order.model'
+import { NgForm } from '@angular/forms'
 
 
 @Component({
@@ -11,7 +13,7 @@ export class OrderCreateComponent implements OnInit {
   constructor() { }
 
   //Basically a broadcast object, from what I can see
-  @Output() orderCreated = new EventEmitter();
+  @Output() orderCreated = new EventEmitter<Order>();
 
  
 
@@ -19,7 +21,8 @@ export class OrderCreateComponent implements OnInit {
   enteredEmail = ``;
   enteredOrder = ``;
 
-  order = {};
+  usernameError = `username is invalid`;
+  emailError = `email is invalid`;
 
 
   ngOnInit(): void {
@@ -30,15 +33,36 @@ export class OrderCreateComponent implements OnInit {
   //emits it
   Order_Clicked()
   {
-    this.order = {
-      UserName: this.enteredUserName,
-      Email: this.enteredEmail,
-      PlacedOrder: this.enteredOrder
+    const order : Order = {
+      username: this.enteredUserName,
+      email: this.enteredEmail,
+      placedOrder: this.enteredOrder
     }
     //whatever is insied the brackets gets emitted
-    this.orderCreated.emit(this.order);  
+    console.log(order);
+    this.orderCreated.emit(order);  
   }
 
-  
+  onAddOrder(OrderForm: NgForm)
+  {
+    
+    if(OrderForm.invalid)
+    {
+      return;
+    }
+    else
+    {
+      const order : Order = {
+        username: this.enteredUserName,
+        email: this.enteredEmail,
+        placedOrder: this.enteredOrder
+      }
+      //whatever is insied the brackets gets emitted
+      console.log(order);
+      console.log(OrderForm.invalid);
+      this.orderCreated.emit(order);  
+    }
+    
 
+  }
 }
