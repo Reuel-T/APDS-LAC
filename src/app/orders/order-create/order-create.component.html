@@ -2,6 +2,13 @@
 
 <mat-card>
 
+    <!--
+        #s are used to "declare" variables within the html
+        postOrder is the whole form which is passed into the code on the ts file
+        #userName is a bound field (uses ngModel)
+        the ngIf checks the field #userName (which is now of type NgForm)
+    -->
+
     <form class="login" (submit)="onAddOrder(postOrder)" #postOrder="ngForm">
         <mat-form-field [style.width.px]=300 >
             <input 
@@ -12,7 +19,7 @@
                 name="enteredUserName"
                 #userName = "ngModel"
                 placeholder="Entreth thy Usernameth Hereth"
-                minlength="8"
+                minlength="3"
                 />
             <mat-error *ngIf="userName.invalid">{{ usernameError }}</mat-error>
         </mat-form-field>

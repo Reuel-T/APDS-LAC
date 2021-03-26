@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Order } from '../order.model'
 import { NgForm } from '@angular/forms'
 
+import { OrderService } from '../order.service';
+
 
 @Component({
   selector: 'app-order-create',
@@ -10,10 +12,10 @@ import { NgForm } from '@angular/forms'
 })
 export class OrderCreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(public orderService : OrderService) { }
 
   //Basically a broadcast object, from what I can see
-  @Output() orderCreated = new EventEmitter<Order>();
+  @Output() orderCreated = new EventEmitter();
 
  
 
@@ -28,29 +30,11 @@ export class OrderCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //So, this method makes an emit
-  //populates the order object and then
-  //emits it
-  Order_Clicked()
-  {
-    const order : Order = {
-      username: this.enteredUserName,
-      email: this.enteredEmail,
-      placedOrder: this.enteredOrder
-    }
-    //whatever is insied the brackets gets emitted
-    console.log(order);
-    this.orderCreated.emit(order);  
-  }
-
-  onAddOrder(OrderForm: NgForm)
-  {
-    
-    if(OrderForm.invalid)
-    {
-      return;
-    }
-    else
+  /*
+    So, this method makes an emit
+    //populates the order object and then
+    //emits it
+    Order_Clicked()
     {
       const order : Order = {
         username: this.enteredUserName,
@@ -59,10 +43,28 @@ export class OrderCreateComponent implements OnInit {
       }
       //whatever is insied the brackets gets emitted
       console.log(order);
-      console.log(OrderForm.invalid);
       this.orderCreated.emit(order);  
     }
-    
+  */
 
+  onAddOrder(OrderForm: NgForm)
+  {
+    
+    console.log(OrderForm.invalid);
+
+    if(OrderForm.invalid)
+    {
+      return;
+    }
+    else
+    {
+      //We use the values of the input "name" fields (not the # ones)
+      //Those are for use in html (I think)
+      const oUsername : string = OrderForm.value.enteredUserName;
+      const oEmail : string = OrderForm.value.enteredEmail;
+      const oDetails : string = OrderForm.value.enteredOrder;
+
+      this.orderService.addOrder(oUsername, oEmail, oDetails);
+    }
   }
 }
