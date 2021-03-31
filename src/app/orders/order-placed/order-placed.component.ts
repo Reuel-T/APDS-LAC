@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Order } from '../order.model'
 
 import { OrderService } from '../order.service';
@@ -10,22 +11,26 @@ import { OrderService } from '../order.service';
 })
 export class OrderPlacedComponent implements OnInit, OnDestroy {
 
-  //receives from the parent component (I think)
-  //probably why we have the array declared in app.component
-  //@Input() orders : Order[] = [];
 
   orders: Order[] = [];
 
   constructor(public orderService: OrderService) { }
 
+  private orderSubscription : Subscription;
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.orderSubscription.unsubscribe();
   }
 
 
   ngOnInit(): void {
     this.orders = this.orderService.getOrders();
+    this.orderSubscription = this.orderService.getPostUpdateListener()
+      .subscribe((orders:Order[]) => 
+      {
+        this.orders = orders
+      }
+    );
   }
 
 }

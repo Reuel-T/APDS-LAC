@@ -1,5 +1,6 @@
 import { Order } from './order.model';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +9,19 @@ import { Injectable } from '@angular/core';
 export class OrderService {
 
   private orders : Order[] = [];
+  private updatedOrders = new Subject<Order[]>();
 
   constructor() { }
 
   getOrders()
   {
-    // not sure why the activity included a spread operator when theres nothing
-    // to "copy" or append to 
-    return this.orders;
+
+    return [...this.orders];
+  }
+
+  getPostUpdateListener()
+  {
+    return this.updatedOrders.asObservable();
   }
 
   addOrder(username: String, email: String, details: String)
@@ -27,10 +33,14 @@ export class OrderService {
                           };
 
     this.orders.push(order);
+    this.updatedOrders.next([...this.orders]);
+    
+    /*
     console.log("Spread");
     console.log(...this.orders);
     console.log("Straight Return");
     console.log(this.orders);
+    */
   }
 
 }
