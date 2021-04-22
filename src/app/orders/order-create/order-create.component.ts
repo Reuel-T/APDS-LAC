@@ -64,7 +64,7 @@ export class OrderCreateComponent implements OnInit {
       const oEmail : string = OrderForm.value.enteredEmail;
       const oDetails : string = OrderForm.value.enteredOrder;
 
-      this.orderService.addOrder(oUsername, oEmail, oDetails);
+      this.orderService.addOrders(oUsername, oEmail, oDetails);
     }
   }
 }
