@@ -1,7 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const mongoose = require('mongoose');
+const Order = require('./model/order');
 const app = express();
+
+
+const fs = require('fs');
+const cert = fs.readFileSync('keys/certificate.pem');
+const options = {
+    server: {sslCA: cert}
+};
 
 app.use(bodyParser.json());
 
@@ -16,33 +24,19 @@ app.use((req, res, next) =>
     next();
 });
 
-app.use('/api/orders',(req, res, next) => 
-    {
-        const orders = 
-        [
-            {
-                id: 'ID1',
-                username: 'Reuel',
-                email : 'reueltyler@gmail',
-                placedOrder: 'PlacedOrder1'
-            },
-            {
-                id: 'ID2',
-                username: 'Lesser Being',
-                email : 'reueltyler@gmail',
-                placedOrder: 'PlacedOrder2'
-            }
-        ];
+mongoose.connect("mongodb+srv://admin:admin@apds-lac.omg3g.mongodb.net/order-db?retryWrites=true&w=majority")
+    .then(() => 
+        {
+            console.log('Connected to DB');
+        }
+    )
+    .catch(() => 
+        {
+            console.log('Connection dead');
+        }
+    );
 
-        res.json(
-            {
-                message: 'Orders retrieved from server',
-                orders:orders
-            }
-        );
-    });
 
-const Order = require('./model/order');
 
 app.post('/api/orders',(req, res, next) =>
     {
@@ -53,7 +47,10 @@ app.post('/api/orders',(req, res, next) =>
                 placedOrder: req.body.placedOrder
             }
         )
+        orders.save();
         console.log(orders);
+
+
         res.status(201).json({message: 'Order Created'});
     }
 );
