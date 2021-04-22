@@ -42,11 +42,18 @@ app.use('/api/orders',(req, res, next) =>
         );
     });
 
+const Order = require('./model/order');
+
 app.post('/api/orders',(req, res, next) =>
     {
-        const orders = req.body;
+        const orders = new Order(
+            {
+                username : req.body.username,
+                email : req.body.email,
+                placedOrder: req.body.placedOrder
+            }
+        )
         console.log(orders);
-
         res.status(201).json({message: 'Order Created'});
     }
 );
