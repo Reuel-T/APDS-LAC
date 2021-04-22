@@ -1,18 +1,20 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
-/*
-app.use((req, res, next) => 
-{
-    res.send('first middleware, use the next method to call the next one');
-    next();
-});
+
+app.use(bodyParser.json());
 
 app.use((req, res, next) => 
 {
-    res.send('second middleware, use the next method to call the next one');
+    res.setHeader("Access-Control-Allow-Origin",'*');
+    res.setHeader("Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept"
+    );
+    res.setHeader("Access-Control-Allow-Methods",
+    "GET","POST","OPTIONS","PATCH","DELETE");
+    next();
 });
-*/
 
 app.use('/api/orders',(req, res, next) => 
     {
@@ -40,6 +42,14 @@ app.use('/api/orders',(req, res, next) =>
         );
     });
 
+app.post('/api/orders',(req, res, next) =>
+    {
+        const orders = req.body;
+        console.log(orders);
+
+        res.status(201).json({message: 'Order Created'});
+    }
+);
 
 module.exports = app;
 

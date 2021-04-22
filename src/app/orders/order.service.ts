@@ -39,8 +39,15 @@ export class OrderService {
                             placedOrder : details
                           };
 
-    this.orders.push(order);
-    this.updatedOrders.next([...this.orders]);
+    this.http.post<{message: string}>('https://localhost:3000/api/orders',order)
+      .subscribe((responseData) => 
+        {
+          console.log(responseData.message);
+          this.orders.push(order);
+          this.updatedOrders.next([...this.orders]);    
+        })
+
+    
   }
 
 }
