@@ -20,7 +20,7 @@ app.use((req, res, next) =>
     "Origin,X-Requested-With,Content-Type,Accept"
     );
     res.setHeader("Access-Control-Allow-Methods",
-    "GET","POST","OPTIONS","PATCH","DELETE");
+    "*");
     next();
 });
 
@@ -36,6 +36,18 @@ mongoose.connect("mongodb+srv://admin:admin@apds-lac.omg3g.mongodb.net/order-db?
         }
     );
 
+
+app.get('/api/orders',(req, res, next) => 
+{
+    Order.find().then((documents) => 
+    {
+        res.json(
+        {        
+            message : 'Orders Fetched from Server',
+            orders : documents
+        });
+    });
+})
 
 
 app.post('/api/orders',(req, res, next) =>
@@ -54,6 +66,15 @@ app.post('/api/orders',(req, res, next) =>
         res.status(201).json({message: 'Order Created'});
     }
 );
+
+app.delete('/api/orders/:id',(req,res,next) => 
+{
+    Order.deleteOne({_id: req.params.id})
+        .then( result => 
+            {
+                res.status(200).json({message : 'Order Deleted'})
+            });
+});
 
 module.exports = app;
 

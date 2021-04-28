@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { ThrowStmt } from '@angular/compiler';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +15,34 @@ export class OrderService {
   private updatedOrders = new Subject<Order[]>();
 
   constructor(private http: HttpClient) { }
-
-  getOrders()
-  {
-    this.http.get<{message: string, orders: Order[]}>('https://localhost:3000/api/orders')
-      .subscribe((orderData) => 
-      {
-        this.orders = orderData.orders;
-        this.updatedOrders.next([...this.orders]);
-      });
-  }
-
+  
   getPostUpdateListener()
   {
     return this.updatedOrders.asObservable();
   }
+  //gets the orders from the API
+  getOrders()
+  {
+    this.http.get<{message: string, orders: any}>('https://localhost:3000/api/orders')
+      .pipe(map((orderData) => 
+      {
+        return orderData.orders.map(order => 
+          {
+            return{
+              username : order.username,
+              email : order.email,
+              placedOrder : order.placedOrder,
+              id: order._id
+            };
+          });
+      }))
+      .subscribe((changedOrders) => 
+      {
+        this.orders = changedOrders;
+        this.updatedOrders.next([...this.orders]);
+      });
+  }
+
 
   addOrders(username: String, email: String, details: String)
   {
@@ -45,9 +59,18 @@ export class OrderService {
           console.log(responseData.message);
           this.orders.push(order);
           this.updatedOrders.next([...this.orders]);    
-        })
-
-    
+        })    
   }
 
+  deleteOrder(orderID : string)
+  {
+    this.http.delete('https://localhost:3000/api/orders/' + orderID)
+        .subscribe(() => 
+        {
+            const updatedOrdersDel = this.orders.filter(order => order.id !== orderID);
+            this.orders = updatedOrdersDel;
+            this.updatedOrders.next([...this.orders]);
+            console.log(`Order with ID ${orderID} deleted`);
+        });
+  }
 }

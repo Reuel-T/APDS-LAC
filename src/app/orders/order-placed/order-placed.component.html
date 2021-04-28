@@ -4,6 +4,21 @@
         {{ order.username }}
         </mat-expansion-panel-header>
         {{ order.placedOrder }}
+
+        <mat-action-row>
+            <button 
+                mat-button 
+                color="primary"
+                >Editeth Order
+            </button>
+            <button 
+                mat-button 
+                color="warn" 
+                (click)="onDelete(order.id)"
+                >Deleteth Order
+            </button>
+        </mat-action-row>
+
     </mat-expansion-panel>
 </mat-accordion>
 <p class="mat-body" *ngIf="orders.length < 1"> No Posts Here m8</p>

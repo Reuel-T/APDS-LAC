@@ -16,3 +16,5 @@ const port = (process.env.PORT || 3000);
 app.set('port', port);
 
 server.listen(port);
+
+console.log(`Server listening on PORT: ${port}`);
