@@ -1,0 +1,46 @@
+<p>Loggeth in</p>
+
+<mat-card>
+    <form class="login" name="login" #loginForm="ngForm">
+        <mat-form-field [style.width.px]=300>
+            <input matInput type="text"
+                ngModel name="enteredUsername"
+                placeholder="Username"
+                required
+                minlength="3"
+                pattern="^[a-zA-Z0-9\s_-]+$"
+                #enteredUsername = "ngModel"
+            />
+            <mat-error *ngIf="enteredUsername.invalid" >{{ usernameError }}</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field [style.width.px]=300 >
+            <input 
+                matInput 
+                required
+                type="email" 
+                ng-pattern = "^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                ngModel
+                name="enteredEmail"
+                #email = "ngModel"
+                placeholder="Entreth thy Witchcraft Mail Address Hereth"
+                />
+            <mat-error *ngIf="email.invalid">{{ emailError }}</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field [style.width.px]=300 >
+            <input 
+                matInput 
+                required
+                type="password" 
+                ngModel
+                name="enteredPassword"
+                #enteredPassword = "ngModel"
+                placeholder="Password"
+                />
+            <mat-error *ngIf="enteredPassword.invalid">{{ passwordError }}</mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button type="submit" color="primary">Login</button>
+    </form>
+</mat-card>

@@ -16,13 +16,15 @@ import { OrderPlacedComponent } from './orders/order-placed/order-placed.compone
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HttpClientModule } from "@angular/common/http";
+import { LoginComponent } from './Auth/login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderCreateComponent,
-    OrderPlacedComponent
+    OrderPlacedComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
