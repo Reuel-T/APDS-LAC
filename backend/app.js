@@ -73,8 +73,20 @@ app.delete('/api/orders/:id',(req,res,next) =>
         .then( result => 
             {
                 res.status(200).json({message : 'Order Deleted'})
+                console.log(`Order with id ${req.params.id} Deleted`);
             });
 });
 
-module.exports = app;
+app.get('/api/yeet', (req,res, next) =>
+{
+    res.json
+    (
+        {
+            message: 'hi'
+        }
+    )
 
+    res.status(200).json({message: 'Sup man'});
+})
+
+module.exports = app;

@@ -11,6 +11,8 @@ const server = http.createServer(
     }, app
 );
 
+console.log('Server Created');
+
 const port = (process.env.PORT || 3000);
 
 app.set('port', port);
