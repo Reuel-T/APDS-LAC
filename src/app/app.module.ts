@@ -17,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './Auth/login/login.component';
+import { SignupComponent } from './Auth/signup/signup.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { LoginComponent } from './Auth/login/login.component';
     AppComponent,
     OrderCreateComponent,
     OrderPlacedComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

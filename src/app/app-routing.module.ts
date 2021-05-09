@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderCreateComponent } from './orders/order-create/order-create.component';
 import { OrderPlacedComponent } from './orders/order-placed/order-placed.component';
 import { LoginComponent } from './Auth/login/login.component';
+import { SignupComponent } from './Auth/signup/signup.component';
 
 
 const routes: Routes = 
@@ -11,6 +12,7 @@ const routes: Routes =
   {path : 'create', component: OrderCreateComponent},
   {path : 'edit/:postID', component: OrderCreateComponent},
   {path : 'login', component: LoginComponent},
+  {path : 'signup', component: SignupComponent},
 ];
 
 @NgModule({

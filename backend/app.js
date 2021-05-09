@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const Order = require('./model/order');
 const app = express();
 
+//ROUTES
+const orderRoutes = require('./routes/orders');
+const userRoutes = require('./routes/user')
+
 
 const fs = require('fs');
 const cert = fs.readFileSync('keys/certificate.pem');
@@ -13,6 +17,7 @@ const options = {
 
 app.use(bodyParser.json());
 
+//Allowing CORS
 app.use((req, res, next) => 
 {
     res.setHeader("Access-Control-Allow-Origin",'*');
@@ -24,6 +29,7 @@ app.use((req, res, next) =>
     next();
 });
 
+//connecting to DB
 mongoose.connect("mongodb+srv://admin:admin@apds-lac.omg3g.mongodb.net/order-db?retryWrites=true&w=majority")
     .then(() => 
         {
@@ -36,57 +42,7 @@ mongoose.connect("mongodb+srv://admin:admin@apds-lac.omg3g.mongodb.net/order-db?
         }
     );
 
-
-app.get('/api/orders',(req, res, next) => 
-{
-    Order.find().then((documents) => 
-    {
-        res.json(
-        {        
-            message : 'Orders Fetched from Server',
-            orders : documents
-        });
-    });
-})
-
-
-app.post('/api/orders',(req, res, next) =>
-    {
-        const orders = new Order(
-            {
-                username : req.body.username,
-                email : req.body.email,
-                placedOrder: req.body.placedOrder
-            }
-        )
-        orders.save();
-        console.log(orders);
-
-
-        res.status(201).json({message: 'Order Created'});
-    }
-);
-
-app.delete('/api/orders/:id',(req,res,next) => 
-{
-    Order.deleteOne({_id: req.params.id})
-        .then( result => 
-            {
-                res.status(200).json({message : 'Order Deleted'})
-                console.log(`Order with id ${req.params.id} Deleted`);
-            });
-});
-
-app.get('/api/yeet', (req,res, next) =>
-{
-    res.json
-    (
-        {
-            message: 'hi'
-        }
-    )
-
-    res.status(200).json({message: 'Sup man'});
-})
+app.use('/api/orders', orderRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;
