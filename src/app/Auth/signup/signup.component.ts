@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms' 
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
   entredEmailError = 'Shit Email';
   isLoading = false;
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +23,7 @@ export class SignupComponent implements OnInit {
   onSignup(form : NgForm)
   {
     console.log(form.value);
+    this.authService.createUser(form.value.enteredEmail, form.value.enteredPassword, form.value.enteredUsername);
   }
 
 }

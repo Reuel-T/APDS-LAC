@@ -4,6 +4,8 @@ const router = express.Router();
 
 const Order = require('../model/order');
 
+const CheckAuth = require('../middleware/check-auth');
+
 router.get('',(req, res, next) => 
 {
     Order.find().then((documents) => 
@@ -14,10 +16,12 @@ router.get('',(req, res, next) =>
             orders : documents
         });
     });
+
+    console.log('get orders');
 })
 
 
-router.post('',(req, res, next) =>
+router.post('',CheckAuth,(req, res, next) =>
     {
         const orders = new Order(
             {
@@ -37,17 +41,20 @@ router.post('',(req, res, next) =>
                 })
         });
         console.log(orders);
+        console.log('post orders');
     }
 );
 
-router.delete('/:id',(req,res,next) => 
-{
+router.delete('/:id',CheckAuth, (req,res,next) => 
+{   
     Order.deleteOne({_id: req.params.id})
         .then(result => 
             {
                 res.status(200).json({message : 'Order Deleted'})
                 console.log(`Order with id ${req.params.id} Deleted from DB`);
+                console.log(req);
             });
+    console.log('delete order');
 });
 
 module.exports = router;

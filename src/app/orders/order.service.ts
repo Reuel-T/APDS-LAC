@@ -50,7 +50,7 @@ export class OrderService {
                             id: null,
                             username : username,
                             email : email,
-                            placedOrder : details
+                            placedOrder : details 
                           };
 
     this.http.post<{message: string}>('https://localhost:3000/api/orders',order)
