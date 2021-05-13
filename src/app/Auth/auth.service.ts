@@ -30,6 +30,7 @@ export class AuthService {
           const token = response.token;
           this.token = token;
           console.log(response);
+          console.log(token);
         }) 
 
     console.log('login method');
