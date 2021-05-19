@@ -8,6 +8,12 @@ const User = require('../model/user');
 
 const jwt = require('jsonwebtoken');
 
+const ExpressBrute = require('express-brute');
+
+const store = new ExpressBrute.MemoryStore();
+
+const bruteforce = new ExpressBrute(store);
+
 router.post('/signup', (req,res, next) => 
 {
     bcrypt.hash(req.body.password,10)
@@ -45,7 +51,7 @@ router.post('/signup', (req,res, next) =>
     console.log('signup method');
 });
 
-router.post('/login', (req, res, next) => 
+router.post('/login', bruteforce.prevent, (req, res, next) => 
 {
     let fetchedUser;
 
