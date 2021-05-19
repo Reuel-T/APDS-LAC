@@ -1,8 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Sanitizer, SecurityContext } from '@angular/core';
 import { Order } from '../order.model'
 import { NgForm } from '@angular/forms'
 
 import { OrderService } from '../order.service';
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -12,11 +14,10 @@ import { OrderService } from '../order.service';
 })
 export class OrderCreateComponent implements OnInit {
 
-  constructor(public orderService : OrderService) { }
+  constructor(public orderService : OrderService, private route: ActivatedRoute, protected sanitizer: DomSanitizer) { }
 
-  //Basically a broadcast object, from what I can see
-  @Output() orderCreated = new EventEmitter();
-
+  output:string;
+  output2:string;
  
 
   enteredUserName = ``;
@@ -29,23 +30,6 @@ export class OrderCreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  /*
-    So, this method makes an emit
-    //populates the order object and then
-    //emits it
-    Order_Clicked()
-    {
-      const order : Order = {
-        username: this.enteredUserName,
-        email: this.enteredEmail,
-        placedOrder: this.enteredOrder
-      }
-      //whatever is insied the brackets gets emitted
-      console.log(order);
-      this.orderCreated.emit(order);  
-    }
-  */
 
   onAddOrder(OrderForm: NgForm)
   {
@@ -65,6 +49,8 @@ export class OrderCreateComponent implements OnInit {
       const oDetails : string = OrderForm.value.enteredOrder;
 
       this.orderService.addOrders(oUsername, oEmail, oDetails);
+      this.output = (this.sanitizer.sanitize(SecurityContext.HTML, OrderForm.value.postOrder));
+      OrderForm.resetForm();
     }
   }
 }
