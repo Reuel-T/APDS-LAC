@@ -20,3 +20,25 @@ OPTIONS /api/user/login 200 4 - 3.197 ms {}
 POST /api/user/login 200 229 - 378.723 ms {"email":"reueltyler@gmail.com","password":"password"}
 OPTIONS /api/orders 200 13 - 0.736 ms {}
 GET /api/orders 304 - - 285.591 ms {}
+OPTIONS /api/orders 200 13 - 3.073 ms {}
+GET /api/orders 200 524 - 272.477 ms {}
+OPTIONS /api/user/login 200 4 - 0.714 ms {}
+POST /api/user/login 200 229 - 359.017 ms {"email":"reueltyler@gmail.com","password":"password"}
+OPTIONS /api/orders 200 13 - 3.096 ms {}
+GET /api/orders 200 524 - 278.680 ms {}
+OPTIONS /api/user/signup 200 4 - 0.603 ms {}
+POST /api/user/signup 201 199 - 360.365 ms {"email":"reuel@leemail.com","username":"reuel","password":"12345678"}
+OPTIONS /api/user/login 200 4 - 0.535 ms {}
+POST /api/user/login 200 225 - 502.558 ms {"email":"reuel@leemail.com","password":"12345678"}
+OPTIONS /api/user/login 200 4 - 3.140 ms {}
+POST /api/user/login 200 225 - 438.180 ms {"email":"reuel@leemail.com","password":"12345678"}
+OPTIONS /api/orders 200 13 - 1.227 ms {}
+OPTIONS /api/orders 200 13 - 0.465 ms {}
+POST /api/orders 201 64 - 407.175 ms {"id":null,"username":"this is a username","email":"reuel@leemail.com","placedOrder":"This is an order detail but with encryption"}
+OPTIONS /api/user/login 200 4 - 2.765 ms {}
+POST /api/user/login 200 225 - 380.952 ms {"email":"reuel@leemail.com","password":"12345678"}
+OPTIONS /api/orders 200 13 - 0.655 ms {}
+GET /api/orders 200 52 - 261.482 ms {}
+OPTIONS /api/orders 200 13 - 0.709 ms {}
+POST /api/orders 201 64 - 309.559 ms {"id":null,"username":"un1","email":"reuel@leemail.com","placedOrder":"dshfaksdhfasj"}
+GET /api/orders 200 169 - 255.067 ms {}
