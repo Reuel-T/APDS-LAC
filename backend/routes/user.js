@@ -1,17 +1,10 @@
 const express = require('express');
-
 const router = express.Router();
-
 const bcrypt = require('bcrypt');
-
 const User = require('../model/user');
-
 const jwt = require('jsonwebtoken');
-
 const ExpressBrute = require('express-brute');
-
 const store = new ExpressBrute.MemoryStore();
-
 const bruteforce = new ExpressBrute(store);
 
 router.post('/signup', (req,res, next) => 
@@ -25,10 +18,12 @@ router.post('/signup', (req,res, next) =>
                         email: req.body.email,
                         password : hash
                     })
-
+                
+                /*
                 console.log(req.body.username);
                 console.log(req.body.email);
                 console.log(req.body.password);
+                */
             
                 user.save()
                     .then(result => 
@@ -48,7 +43,7 @@ router.post('/signup', (req,res, next) =>
                         });
             });
 
-    console.log('signup method');
+    //console.log('signup method');
 });
 
 router.post('/login', bruteforce.prevent, (req, res, next) => 
@@ -57,7 +52,7 @@ router.post('/login', bruteforce.prevent, (req, res, next) =>
 
     User.findOne({email:req.body.email})
         .then(user => {
-            console.log(user);
+            //console.log(user);
             if(!user)
             {
                 return res.status(401).json(
@@ -69,7 +64,7 @@ router.post('/login', bruteforce.prevent, (req, res, next) =>
             return bcrypt.compare(req.body.password, user.password)
         }).then(result => 
             {
-                console.log('2', result);
+                //console.log('2', result);
     
                 if(!result)
                 {
@@ -87,13 +82,13 @@ router.post('/login', bruteforce.prevent, (req, res, next) =>
             })
             .catch(err => 
                 {
-                    console.log(err);
+                    //console.log(err);
                     return res.status(401).json(
                         {
                             message: 'Auth Failure'
                         });
                 });
-    console.log('login method');
+    //console.log('login method');
 })
     
 module.exports = router;

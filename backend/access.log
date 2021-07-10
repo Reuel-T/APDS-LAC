@@ -1,0 +1,22 @@
+::ffff:127.0.0.1 - - [18/Jun/2021:14:53:56 +0000] "OPTIONS /api/orders HTTP/1.1" 200 13 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"
+::ffff:127.0.0.1 - - [18/Jun/2021:14:53:56 +0000] "GET /api/orders HTTP/1.1" 200 524 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"
+::ffff:127.0.0.1 - - [18/Jun/2021:14:54:36 +0000] "OPTIONS /api/user/login HTTP/1.1" 200 4 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"
+::ffff:127.0.0.1 - - [18/Jun/2021:14:54:36 +0000] "POST /api/user/login HTTP/1.1" 200 229 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"
+OPTIONS /api/user/login 200 4 - 3.540 ms
+POST /api/user/login 200 229 - 436.837 ms
+OPTIONS /api/user/login 200 4 - 2.853 ms BODY [object Object]
+POST /api/user/login 200 229 - 353.584 ms BODY [object Object]
+OPTIONS /api/user/login 200 4 - 2.928 ms BODY {}
+POST /api/user/login 200 229 - 439.082 ms BODY {"email":"reueltyler@gmail.com","password":"password"}
+OPTIONS /api/orders 200 13 - 0.639 ms BODY {}
+GET /api/orders 304 - - 1829.361 ms BODY {}
+OPTIONS /api/user/login 200 4 - 3.028 ms -
+POST /api/user/login 200 229 - 391.724 ms -
+OPTIONS /api/user/login 200 4 - 3.022 ms {}
+POST /api/user/login 200 229 - 364.488 ms {"email":"reueltyler@gmail.com","password":"password"}
+OPTIONS /api/orders 200 13 - 1.045 ms {}
+GET /api/orders 304 - - 420.669 ms {}
+OPTIONS /api/user/login 200 4 - 3.197 ms {}
+POST /api/user/login 200 229 - 378.723 ms {"email":"reueltyler@gmail.com","password":"password"}
+OPTIONS /api/orders 200 13 - 0.736 ms {}
+GET /api/orders 304 - - 285.591 ms {}

@@ -33,14 +33,14 @@ router.post('',CheckAuth,(req, res, next) =>
         orders.save()
         .then((createdOrder) => 
         {
-            console.log(createdOrder);
+            //console.log(createdOrder);
             res.status(201).json(
                 {
                     message: 'Order Created',
                     orderID: createdOrder._id
                 })
         });
-        console.log(orders);
+        //console.log(orders);
         console.log('post orders');
     }
 );
